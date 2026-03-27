@@ -13,11 +13,14 @@
     --muted: #8a8578;
     --divider: #d6d0c6;
     --accent: #b8432f;
+    --bar: #6b5b95;
     --coffee: #5c3d2e;
     --tag-bg: #eae6df;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--paper);
@@ -28,8 +31,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Header */
   .header {
-    padding: 56px 24px 44px;
+    padding: 72px 24px 56px;
     text-align: center;
     border-bottom: 1px solid var(--divider);
     position: relative;
@@ -42,7 +46,7 @@
     font-size: 14px;
     letter-spacing: 8px;
     color: var(--warm);
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   .header h1 {
@@ -51,18 +55,44 @@
     font-size: clamp(36px, 6vw, 56px);
     letter-spacing: -0.5px;
     line-height: 1.1;
+    margin-bottom: 20px;
   }
 
+  .header-rule {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background: var(--warm);
+    margin-bottom: 16px;
+  }
+
+  .header-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* Nav */
   .nav {
     display: flex;
     justify-content: center;
     gap: 32px;
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--divider);
+    padding: 16px 24px;
+    border-bottom: 1px solid transparent;
     position: sticky;
     top: 0;
-    background: var(--paper);
+    background: rgba(245, 242, 237, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     z-index: 100;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .nav.scrolled {
+    border-bottom-color: var(--divider);
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
   }
 
   .nav a {
@@ -71,13 +101,31 @@
     letter-spacing: 2px;
     color: var(--muted);
     text-decoration: none;
+    padding: 4px 0;
+    position: relative;
     transition: color 0.2s;
   }
 
-  .nav a:hover, .nav a.active { color: var(--ink); }
+  .nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
 
+  .nav a:hover { color: var(--ink); }
+  .nav a:hover::after { transform: scaleX(1); }
+  .nav a.active { color: var(--ink); }
+  .nav a.active::after { transform: scaleX(1); }
+
+  /* Section headers */
   .section-header {
-    padding: 60px 24px 32px;
+    padding: 72px 24px 36px;
     text-align: center;
   }
 
@@ -88,22 +136,50 @@
     text-transform: uppercase;
     letter-spacing: 4px;
     color: var(--muted);
+    position: relative;
+    display: inline-block;
   }
 
+  .section-header h2::before,
+  .section-header h2::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 32px;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  .section-header h2::before { right: calc(100% + 16px); }
+  .section-header h2::after { left: calc(100% + 16px); }
+
+  .section-header.bar h2 { color: var(--bar); }
   .section-header.coffee h2 { color: var(--coffee); }
 
+  /* Container */
   .container {
     max-width: 680px;
     margin: 0 auto;
     padding: 0 24px;
   }
 
+  /* Entries */
   .entry {
     padding: 40px 0;
     border-bottom: 1px solid var(--divider);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeInUp 0.5s ease forwards;
   }
 
   .entry:last-child { border-bottom: none; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   .entry-header {
     margin-bottom: 16px;
@@ -114,7 +190,8 @@
     font-weight: 600;
     font-size: 28px;
     line-height: 1.2;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    transition: color 0.2s;
   }
 
   .entry-meta {
@@ -131,11 +208,13 @@
     letter-spacing: 1.5px;
     color: var(--muted);
     background: var(--tag-bg);
-    padding: 3px 10px;
-    border-radius: 2px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    transition: background 0.2s;
   }
 
   .tag.cuisine { color: var(--accent); background: rgba(184, 67, 47, 0.08); }
+  .tag.bar-tag { color: var(--bar); background: rgba(107, 91, 149, 0.08); }
   .tag.coffee-tag { color: var(--coffee); background: rgba(92, 61, 46, 0.08); }
 
   .map-link {
@@ -143,10 +222,15 @@
     color: var(--warm);
     text-decoration: none;
     letter-spacing: 0.5px;
-    transition: color 0.2s;
+    padding: 3px 8px;
+    border-radius: 3px;
+    transition: color 0.2s, background 0.2s;
   }
 
-  .map-link:hover { color: var(--accent); }
+  .map-link:hover {
+    color: var(--accent);
+    background: rgba(196, 168, 130, 0.12);
+  }
 
   .entry-body {
     font-size: 15px;
@@ -161,11 +245,13 @@
 
   .price {
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 14px;
     font-family: 'Cormorant Garamond', serif;
     font-size: 15px;
     font-style: italic;
     color: var(--muted);
+    padding-left: 12px;
+    border-left: 2px solid var(--divider);
   }
 
   .section-divider {
@@ -179,19 +265,44 @@
     color: var(--warm);
   }
 
+  /* Footer */
   .footer {
     text-align: center;
-    padding: 60px 24px;
+    padding: 72px 24px;
     border-top: 1px solid var(--divider);
-    margin-top: 20px;
+    margin-top: 32px;
+  }
+
+  .footer-kanji {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 6px;
+    color: var(--warm);
+    margin-bottom: 12px;
   }
 
   .footer p {
-    font-size: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
     color: var(--muted);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
   }
 
+  .footer-counts {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+  }
+
+  .footer-counts span { opacity: 0.7; }
+
+  /* Note box */
   .note-box {
     background: rgba(196, 168, 130, 0.1);
     border-left: 2px solid var(--warm);
@@ -202,21 +313,36 @@
     line-height: 1.7;
   }
 
-  @media (max-width: 600px) {
-    .header { padding: 44px 20px 36px; }
-    .entry-name { font-size: 24px; }
-    .nav { gap: 20px; }
-    .nav a { font-size: 11px; letter-spacing: 1.5px; }
-  }
-
+  /* Map */
   #map {
     width: 100%;
     height: 440px;
     border-bottom: 1px solid var(--divider);
   }
 
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .entry {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    .nav a::after { transition: none; }
+    .tag, .map-link { transition: none; }
+  }
+
+  /* Mobile */
   @media (max-width: 600px) {
+    .header { padding: 56px 20px 44px; }
+    .entry-name { font-size: 24px; }
+    .nav { gap: 20px; padding: 14px 20px; }
+    .nav a { font-size: 11px; letter-spacing: 1.5px; }
+    .section-header { padding: 56px 24px 28px; }
+    .section-header h2::before,
+    .section-header h2::after { width: 20px; }
     #map { height: 320px; }
+    .footer-counts { gap: 16px; flex-wrap: wrap; }
   }
 
 </style>
@@ -225,6 +351,8 @@
 
 <div class="header">
   <h1>Tokyo Restaurant Guide</h1>
+  <div class="header-rule"></div>
+  <div class="header-sub">23 curated places to eat, drink &amp; caffeinate</div>
 </div>
 
 <nav class="nav">
@@ -481,7 +609,7 @@
 </div>
 
 <div id="bar">
-  <div class="section-header">
+  <div class="section-header bar">
     <h2>Bar</h2>
   </div>
 
@@ -491,7 +619,7 @@
       <div class="entry-header">
         <div class="entry-name">Gen Yamamoto</div>
         <div class="entry-meta">
-          <span class="tag cuisine">Cocktail Omakase</span>
+          <span class="tag bar-tag">Cocktail Omakase</span>
           <span class="tag">Azabu-Jūban</span>
           <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Gen+Yamamoto&query_place_id=ChIJCzplpp-LGGARsszLPxhnHn4" target="_blank">↗ Map</a>
           <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130702/13154605/" target="_blank">↗ Tabelog</a>
@@ -507,7 +635,7 @@
       <div class="entry-header">
         <div class="entry-name">Bar Centifolia</div>
         <div class="entry-meta">
-          <span class="tag cuisine">Cocktail Bar</span>
+          <span class="tag bar-tag">Cocktail Bar</span>
           <span class="tag">Azabu-Jūban</span>
           <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bar+Centifolia&query_place_id=ChIJPwOcpp-LGGARY0jMDLqTRcQ" target="_blank">↗ Map</a>
         </div>
@@ -522,7 +650,7 @@
       <div class="entry-header">
         <div class="entry-name">Bar Ishinohana</div>
         <div class="entry-meta">
-          <span class="tag cuisine">Cocktail Bar</span>
+          <span class="tag bar-tag">Cocktail Bar</span>
           <span class="tag">Shibuya</span>
           <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bar+Ishinohana&query_place_id=ChIJJWkia1mLGGARdhoxncfhe-w" target="_blank">↗ Map</a>
         </div>
@@ -592,8 +720,54 @@
 </div>
 
 <div class="footer">
+  <div class="footer-kanji">食</div>
   <p>Curated with care. Eat well.</p>
+  <div class="footer-counts">
+    <span>17 Restaurants</span>
+    <span>3 Bars</span>
+    <span>3 Coffee</span>
+  </div>
 </div>
+
+<script>
+// Scroll-triggered entry animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationDelay = `${i * 0.06}s`;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.entry').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+
+// Add .visible to trigger animation
+document.head.insertAdjacentHTML('beforeend', '<style>.entry.visible { animation-play-state: running; }</style>');
+
+// Nav scroll shadow + active section
+const nav = document.querySelector('.nav');
+const navLinks = document.querySelectorAll('.nav a');
+const sections = document.querySelectorAll('[id]');
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+
+  let current = '';
+  sections.forEach(section => {
+    if (section.offsetTop - 120 <= window.scrollY) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+</script>
 
 <script>
 function initMap() {
