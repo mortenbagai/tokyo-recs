@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokyo Restaurant Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f5f2ed;
+    --warm: #c4a882;
+    --muted: #8a8578;
+    --divider: #d6d0c6;
+    --accent: #b8432f;
+    --coffee: #5c3d2e;
+    --tag-bg: #eae6df;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    padding: 56px 24px 44px;
+    text-align: center;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+  }
+
+  .header::before {
+    content: '東京';
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 8px;
+    color: var(--warm);
+    margin-bottom: 24px;
+  }
+
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(36px, 6vw, 56px);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--divider);
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 100;
+  }
+
+  .nav a {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav a:hover, .nav a.active { color: var(--ink); }
+
+  .section-header {
+    padding: 60px 24px 32px;
+    text-align: center;
+  }
+
+  .section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--muted);
+  }
+
+  .section-header.coffee h2 { color: var(--coffee); }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .entry {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .entry:last-child { border-bottom: none; }
+
+  .entry-header {
+    margin-bottom: 16px;
+  }
+
+  .entry-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .entry-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    background: var(--tag-bg);
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  .tag.cuisine { color: var(--accent); background: rgba(184, 67, 47, 0.08); }
+  .tag.coffee-tag { color: var(--coffee); background: rgba(92, 61, 46, 0.08); }
+
+  .map-link {
+    font-size: 11px;
+    color: var(--warm);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  .map-link:hover { color: var(--accent); }
+
+  .entry-body {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #3a3a36;
+  }
+
+  .entry-body strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .price {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .section-divider {
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .section-divider svg {
+    width: 24px;
+    height: 24px;
+    color: var(--warm);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 60px 24px;
+    border-top: 1px solid var(--divider);
+    margin-top: 20px;
+  }
+
+  .footer p {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .note-box {
+    background: rgba(196, 168, 130, 0.1);
+    border-left: 2px solid var(--warm);
+    padding: 16px 20px;
+    margin: 40px 0;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 600px) {
+    .header { padding: 44px 20px 36px; }
+    .entry-name { font-size: 24px; }
+    .nav { gap: 20px; }
+    .nav a { font-size: 11px; letter-spacing: 1.5px; }
+  }
+
+  #map {
+    width: 100%;
+    height: 440px;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  @media (max-width: 600px) {
+    #map { height: 320px; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Tokyo Restaurant Guide</h1>
+</div>
+
+<nav class="nav">
+  <a href="#restaurants">Restaurants</a>
+  <a href="#bar">Bar</a>
+  <a href="#coffee">Coffee</a>
+</nav>
+
+<div id="map"></div>
+
+<div id="restaurants">
+  <div class="section-header">
+    <h2>Restaurants</h2>
+  </div>
+
+  <div class="container">
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Sōwadō</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Izakaya</span>
+          <span class="tag">Hiroo · near Ebisu Station</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Sowado&query_place_id=ChIJ49405C2LGGARcijau9UAPxE" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1303/A130302/13248516/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Behind a featureless concrete wall with a plain black sliding door, there's no sign. That's the point. Chef Hideaki Sakai — originally from Fukuoka — runs this as the sibling restaurant to Sakai Shokai, channeling Kyushu ingredients into refined small plates over charcoal. The genshiyaki (ancient-style skewers grilled slowly over a brazier) anchor the experience, but the tsukune dipped in golden egg yolk and the rotating sashimi are what people talk about afterward. Excellent natural wine and sake list. Omakase is the move. Reservations required — try TableCheck.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Sakai Shokai</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Izakaya</span>
+          <span class="tag">Shibuya</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Sakai+Shokai&query_place_id=ChIJdcbMblmLGGARbcpOx_E_hhE" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1303/A130301/13220751/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The original restaurant from the same Chef Hideaki Sakai. A dimly lit wooden counter, an open fire, and a 7-course omakase built on Kyushu ingredients and French-inflected technique. The ham cutlet is legendary — thick, crispy, and universally cited as a standout. You sit down, you tell them to feed you, and they do. Strong natural wine program and a sake list curated with the same care as the food. Five-minute walk from Shibuya Station. Reservations essential.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Goryū Kubo</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Kaiseki</span>
+          <span class="tag">Nishi-Azabu</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Goryu+Kubo&query_place_id=ChIJ80DoxGSLGGARDkSbKrpx5yY" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130701/13260180/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Two Michelin stars within seven months of opening — and Chef Takeshi Kubo seems unbothered by the attention. A purist who favors substance over spectacle, Kubo sources directly from producers across Japan: wild soft-shell turtle in spring, saury in autumn, matsuba crab in winter. The philosophy is simple — perfect ingredients, meticulous technique, minimal interference. Recently relocated to an elegant new space on the 3rd floor of the Shalom building in Nishi-Azabu (1-13-14), with private counter seating and a more refined atmosphere than the original basement location. Extremely difficult to book.
+        <span class="price">¥45,000–60,000+ per person</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Pizza Marumo</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Pizza</span>
+          <span class="tag">Ebisu</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Pizza+Marumo&query_place_id=ChIJq6aDrAiLGGAR_99_HFsCvqk" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1303/A130302/13276584/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Chef Yuki Motokura trained at Savoy, then opened his own place in late 2022 and promptly landed in the global top 10 pizzerias (Best Chef Awards, 2023). He calls his pies "Tokyo-style" — the dough has a mochi-like chew from a 24-hour ferment, baked in a custom wood-fired oven built by a traditional Japanese kiln maker at 500°C. The margherita is textbook, but the Japanese Umami pizza (shiitake cream, mozzarella, pecorino, mackerel, bonito flakes, kombu, soy sauce) is the signature everyone orders. Reservations via their website — book early, especially evenings and weekends.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">400°C <span style="font-family:'DM Sans';font-size:16px;color:var(--muted);font-weight:400">(Yonhyakudo)</span></div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Pizza</span>
+          <span class="tag">Kagurazaka</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=400+Pizza+Tokyo&query_place_id=ChIJL5ghJACNGGARayhWqa62-8E" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1309/A130905/13294495/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        A 12-seat counter in the charming Kagurazaka neighborhood that has held the #1 pizza ranking on Tabelog. The interior feels more gallery than restaurant — minimalist, hushed, precise. A gas conveyor belt oven produces a remarkably thin, crisp, airy crust. The FNT pizza (whipped mascarpone, blue cheese, honey) is the signature and genuinely unlike anything else. Bib Gourmand recognized. The reservation system is notoriously strict: narrow booking windows, 70-minute seatings, minimum order of one pizza and one drink per person. Multiple locations now, but the Kagurazaka original is the one.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Ginza Shinohara</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Kaiseki</span>
+          <span class="tag">Ginza</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ginza+Shinohara&query_place_id=ChIJR_yX_-OLGGARsCa9A8FfuIA" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1301/A130101/13200949/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Chef Takesho Shinohara ran one of the most revered kaiseki restaurants in rural Shiga Prefecture, consistently ranked in Japan's top three on Tabelog. In 2016, he walked away from it all to start fresh in Ginza. The cooking is rooted in the powerful flavors of rural Japan — bold, seasonal, heartfelt — presented in an elegant basement space with an L-shaped white-wood counter. The hassun (seasonal platter) changes monthly and is the emotional centerpiece of the meal. Tabelog Gold. Reservations open on the 25th of each month and go fast.
+        <span class="price">¥35,000 per person</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Ushimatsu</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Yakiniku</span>
+          <span class="tag">Nishi-Azabu · near Hiroo</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ushimatsu&query_place_id=ChIJA1ebgXCLGGAR1n_JVWSMmsk" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130703/13242515/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        A yakiniku restaurant for people who take beef seriously. Chef Tatsuro Hirakubo purchases entire female Tajima-breed black wagyu cattle — purebred, 30+ months old — and breaks them down in-house to build a coursed experience that's closer to omakase than typical grill-your-own. The signature "shibari tan" (tongue wrapped around chopped scallions) went viral before the restaurant even opened. Somm-curated wine list of 90+ bottles. The hidden sub-basement counter "Uramatsu" (7 seats, four nights a week) is the unicorn reservation.
+        <span class="price">Courses from ¥10,000–15,000+</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Savoy</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Pizza</span>
+          <span class="tag">Azabu-Jūban</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Savoy+Azabujuban&query_place_id=ChIJsV7GIZ6LGGARbnXuYG1VmG4" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130702/13036875/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        A Tokyo pizza institution since 2006, and still one of the best. The original Azabu-Jūban location has 13 counter seats facing a hulking wood-fired oven, and the menu is ruthlessly simple: margherita, marinara, and an off-menu bianca. That's it. Named after the famous Harlem jazz ballroom, there's always jazz playing. The crust is soft, chewy, and charred just right from the 500-degree oven, and the simplicity is the whole point. Walk-ins possible at lunch; reserve for dinner. A sister location, Savoy Tomato &amp; Cheese, is a few minutes away. The newer bluefin tuna pizza at the main shop is a crowd-pleaser.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Aramaki</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Yakitori</span>
+          <span class="tag">Higashi-Azabu · near Akabanebashi</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Aramaki+Yakitori&query_place_id=ChIJ1Wu7SQCLGGAR6GWyDBFXwwk" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1314/A131401/13296718/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Opened July 2024, and already a Michelin-recognized Inspectors' Favorite. Chef Masashi Aramaki — a former Muay Thai fighter who trained at Ginza Torishige, two-star Ginza Kojyu, and served as head chef at Yakitori Omino Kamiyacho — runs an intimate 8-seat counter. The format alternates precisely between seasonal Japanese small plates and yakitori skewers: salt-seasoned in the first half, transitioning to tare in the second, with kaiseki-caliber dishes (wanmono, hassun) woven between. Finishes with extraordinary donabe rice. One of the most exciting new restaurants in Tokyo right now.
+        <span class="price">¥13,700+</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Yakitori Omino</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Yakitori</span>
+          <span class="tag">Oshiage · Kamiyacho · Kyobashi</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Yakitori+Omino&query_place_id=ChIJAQC1MSqPGGAR5m9NVwzZ5Cc" target="_blank">↗ Oshiage</a>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Omino+Kamiyacho&query_place_id=ChIJ0SaEEc6LGGARa4vP9Nr13so" target="_blank">↗ Kamiyacho</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130704/13255846/" target="_blank">↗ Tabelog</a>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Omino+Tsubaki&query_place_id=ChIJX2anK0OLGGARpcYQJ9wV7_c" target="_blank">↗ Tsubaki</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Chef Omino Masayoshi trained at the legendary Torishiki in Meguro, then opened his own counter in an unlikely Oshiage back street in 2017. Michelin star by 2019. The philosophy: Date chicken from Fukushima, Kishu binchotan charcoal, and split-second timing. The counter forms a U around the grill, and the team calls out to each other as skewers hit their peak — salt-forward, generous cuts, served the instant they're ready. <strong>Omino Kamiyacho</strong> is the more kaiseki-influenced sibling, weaving seasonal courses between the skewers — think chicken thigh sushi, liver pâté, stuffed wings with sticky rice and chestnuts. <strong>Omino Tsubaki</strong> in Kyobashi is the newest, a tiny 7-seat basement counter where Omino-san himself now stations.
+        <span class="price">¥15,000–20,000</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Kiyota</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Sushi</span>
+          <span class="tag">Ginza</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kiyota+Sushi+Ginza&query_place_id=ChIJ9Q3jFu-LGGARFrGClhWpsvY" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1301/A130101/13070238/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Established in 1963, now helmed by fourth-generation chef Norihiko Yoshizawa. A 9-seat counter on a quiet Ginza back street where there is no menu — only omakase built from whatever the chef sourced at Toyosu that morning. The house obsession is tuna: Kiyota's relationships with fishermen and brokers are decades deep, and the maguro here is considered among the finest in Tokyo. The shari is mild, seasoned with red vinegar, and the overall approach is unfussy — the fish speaks. Tabelog Bronze, and its satellite Kiyota Hanare (designed by artist Hiroshi Sugimoto) pushes into ¥100,000+ territory.
+        <span class="price">Main counter: ¥38,500–58,300</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Sushi Takeru</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Sushi</span>
+          <span class="tag">Ginza</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Sushi+Takeru&query_place_id=ChIJhcsBp_WLGGARIJwpsZ9sB-M" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1301/A130101/13271362/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The new generation. Takeru Watanabe trained at Ginza Kyubey and Sushi Arai before opening his own counter in Ginza 7-chome in 2022. The L-shaped yakusugi cedar counter was a gift from his mentor Yuichi Arai. The omakase opens with sashimi (the aged botan-ebi is a signature), moves through small plates including ankimo and grilled shellfish, then transitions into piece-by-piece nigiri placed directly on the counter. The tamagoyaki at the close is a production — layered with tremendous care in a large square pan. He goes to Toyosu daily, personally. Tabelog Bronze 2025.
+        <span class="price">¥30,000–40,000</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Bia <span style="font-family:'DM Sans';font-size:16px;color:var(--muted);font-weight:400">(美会)</span></div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Thai-Japanese Fusion</span>
+          <span class="tag">Roppongi</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bia+Roppongi&query_place_id=ChIJCwv0RnmLGGARqpAsMeU0VUA" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130701/13270211/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The wildcard on this list, and worth every bit of the detour. Founded by Thai epicure Beer Peragate Charoenpanich, Bia layers Thai spices and techniques over Japan's finest seasonal ingredients — the result is a kaiseki-format omakase that tastes like nothing else in Tokyo. Shark fin in suppon broth with Thai medicinal herbs. Black abalone in an oyster-omelette riff. Wagyu nam tok with caviar. The fugu is fried with Thai spices. It finishes with massaman curry, green curry, and jasmine rice. Tabelog Silver and Best New Entry. Wine pairing by a talented sommelier is strongly recommended.
+        <span class="price">¥28,500–36,300</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">LUONTO</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Italian · Wine</span>
+          <span class="tag">Tsukiji · near Shintomicho</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=LUONTO+Tsukiji&query_place_id=ChIJoXxXpH2LGGARqoOsQVUnnoQ" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1301/A130101/13243916/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        A wine-driven Italian on a quiet Tsukiji side street, run by a caviste (cellar manager) who ages and curates every bottle himself. The name is Finnish for "nature" — a nod to the philosophy that great wine is an expression of its origins, and the restaurant should be a place to decompress and connect with that. The cellar leans heavily on wines that have hit their peak drinking window, regardless of region or style, which makes the by-the-glass selection unusually deep and interesting. The food is refined Italian built around seasonal Japanese ingredients — polenta and ragù, homemade pastas, clean preparations that let the wine lead. A proper wine dinner destination. Closed Wednesdays, Saturdays, and Sundays.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Honke Abeya</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Oyakodon · Chicken</span>
+          <span class="tag">Marunouchi · KITTE B1</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Honke+Abeya+KITTE&query_place_id=ChIJCbvm9_qLGGARCc-qi-hWCS0" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1302/A130201/13153694/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        An Akita institution with an outpost in the basement of KITTE, directly connected to Tokyo Station. Honke Abeya is the Tokyo arm of a farm-to-table operation centered on Hinai-jidori — one of Japan's three most prized chicken breeds, raised stress-free in the northern mountains of Akita. Whole birds arrive daily and are broken down in-house. The oyakodon is the thing to order: charcoal-grilled thigh and breast over rice, finished with soft-set eggs rich enough to pick up with chopsticks, all in a dashi made from simmered Hinai chicken bones. No onions, no filler — just chicken, egg, and rice doing exactly what they should. Also worth trying: the yakitori, kiritanpo nabe (Akita rice-stick hot pot), and the local Akita craft beers. A perfect, unfussy lunch near Tokyo Station.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="bar">
+  <div class="section-header">
+    <h2>Bar</h2>
+  </div>
+
+  <div class="container">
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Gen Yamamoto</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Cocktail Omakase</span>
+          <span class="tag">Azabu-Jūban</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Gen+Yamamoto&query_place_id=ChIJCzplpp-LGGARsszLPxhnHn4" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130702/13154605/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Arguably the bar that invented the omakase cocktail. Gen Yamamoto — a veteran of the New York cocktail scene who trained at David Bouley's Brushstroke — returned to Tokyo in 2012 and built an 8-seat counter from a 500-year-old slab of Japanese oak in a quiet Azabu-Jūban alley. There's no menu. You choose a 4- to 7-drink tasting set, and Yamamoto crafts each cocktail in front of you using seasonal Japanese fruit, vegetables, and fine spirits — more kitchen knife than cocktail shaker. No shaking, no ice in mixing glasses, no classics. The drinks are small, lower in alcohol, and change weekly with the seasons. The space has no music, no decoration beyond a single flower — it's closer to a tea ceremony than a bar. He speaks excellent English. Book by phone at least a week in advance; a month is safer.
+        <span class="price">¥6,200–9,000 for 4–7 drinks</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Bar Centifolia</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Cocktail Bar</span>
+          <span class="tag">Azabu-Jūban</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bar+Centifolia&query_place_id=ChIJPwOcpp-LGGARY0jMDLqTRcQ" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The polar opposite of Gen Yamamoto — and just around the corner in Azabu-Jūban. Where Yamamoto is monastic stillness, Centifolia is pure theater. Owner-bartender Yuzo Komai, a Suntory Cocktail Award champion, turns every drink into a performance: katana ice-carving, liquid nitrogen clouds, blue fire tracing across the bar top. There's no menu — you tell the staff your preferences (favorite fruits, flavors, spirit leanings) and Komai crafts something bespoke in front of you. Despite the showmanship, the cocktails themselves are genuinely well-made and beautifully presented. The space is small — 6th floor of a nondescript building — and reservation-only. Book via TableCheck or try DM on Instagram. Closed Wednesdays. Opens at 8:30pm.
+        <span class="price">~¥5,000–6,000 per drink including cover</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Bar Ishinohana</div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Cocktail Bar</span>
+          <span class="tag">Shibuya</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bar+Ishinohana&query_place_id=ChIJJWkia1mLGGARdhoxncfhe-w" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Tucked in a basement a minute from Shibuya Station, Ishinohana is the mixology bar that serious cocktail people in Tokyo point to. Owner-bartender Shinobu Ishigaki — Bacardi-Martini Grand Prix champion (2005) — works with the speed and precision of a drummer, wielding seasonal fruits, Japanese herbs, and housemade infusions to build drinks that constantly evolve. The menu spans three actual books: one for original cocktails, one dedicated entirely to 50 martini variations, and one for 50 mojitos. But the seasonal specials and Ishigaki's improvisations based on your preferences are the real draw. Try the Oribe (gin, matcha, milk, wasanbon sugar, gold powder) or just tell him what you like and let him go. The vibe is quieter and more approachable than Ginza's formal bartending temples — a proper neighborhood cocktail bar that happens to be world-class. Closed Wednesdays and Thursdays.
+        <span class="price">~¥1,500–2,000 per cocktail + cover</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="coffee">
+  <div class="section-header coffee">
+    <h2>Coffee</h2>
+  </div>
+
+  <div class="container">
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Leaves Coffee Roasters</div>
+        <div class="entry-meta">
+          <span class="tag coffee-tag">Specialty Coffee</span>
+          <span class="tag">Kuramae · Sumida side</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Leaves+Coffee+Roasters&query_place_id=ChIJs73IqKGPGGAR8vR56OnCUD4" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1311/A131103/13230333/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Founded by Yasuo Ishii — a former professional boxer who pivoted to coffee after receiving a bag of beans as a gift in 2010. Entirely self-taught as both barista and roaster, he placed 1st in the Tokyo area and 3rd nationally at the Japan Roasting Competition in his first year competing. The philosophy is light roasts focused on clean sweetness and vibrant acidity, brewed with meticulous precision. The roastery is a minimalist, industrial space where the staff walks you through single-origin options with serious knowledge. There's also a secondary stand, Leaves Coffee Apartment, a short walk across the river in Komagata (takeaway only, paper cups).
+      </div>
+      <div class="note-box">Open Friday through Monday only, 10am–5pm. Plan accordingly.</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Glitch Coffee &amp; Roasters</div>
+        <div class="entry-meta">
+          <span class="tag coffee-tag">Specialty Coffee</span>
+          <span class="tag">Jimbocho</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Glitch+Coffee+Roasters+Jimbocho&query_place_id=ChIJDxYKIhCMGGARScnqzc-T-TU" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The original location — not the newer Ginza outpost. Founded by Kiyokazu Suzuki, a former Paul Bassett head roaster and Japan AeroPress Champion (2014), Glitch occupies a small corner space on Chiyoda-dori in the bookish Jimbocho neighborhood. The concept is uncompromising: exclusively super-light single-origin roasts designed to maximize the fruit character inherent in great coffee. You choose from a rotating selection of beans — often a dozen or more — with the barista guiding you through flavor profiles. Pour-over is the focus (V60), with espresso also available. The "Share Roaster Project," in which Glitch lends its Probat roaster to other shops, speaks to Suzuki's community-first ethos. Expect a queue at peak hours; the space fits about 10 people. Open daily from 8am (9am weekends).
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-name">Koffee Mameya</div>
+        <div class="entry-meta">
+          <span class="tag coffee-tag">Coffee Boutique</span>
+          <span class="tag">Omotesando</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Koffee+Mameya&query_place_id=ChIJB1oleKOMGGAR_10GNeoySkY" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1306/A130602/13204760/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        More coffee consultation than café. Founded by Eiichi Kunitomo on the same site as the beloved (and now closed) Omotesando Koffee, Koffee Mameya opened in 2017 as a bean specialist — the name literally means "coffee bean store." The space is radically minimal: a small counter, three baristas, and a glass case displaying 20–30 coffees from a curated roster of Japanese and international roasters. There's no menu in the traditional sense — the barista asks what you like and prescribes the right cup, prepared as drip or espresso. No milk drinks, no seating — standing only. It's an education as much as it is a coffee. Lines can be long, especially on weekends. For a proper sit-down experience, the newer Koffee Mameya Kakeru in Kiyosumi-Shirakawa offers tasting courses and dessert pairings at a counter.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>Curated with care. Eat well.</p>
+</div>
+
+<script>
+function initMap() {
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 35.672, lng: 139.748 },
+    zoom: 12,
+    styles: [
+      { elementType: 'geometry', stylers: [{ color: '#f0ece4' }] },
+      { elementType: 'labels.text.fill', stylers: [{ color: '#8a8578' }] },
+      { elementType: 'labels.text.stroke', stylers: [{ color: '#f0ece4' }] },
+      { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#e0dbd1' }] },
+      { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#d6d0c6' }] },
+      { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c8d6df' }] },
+      { featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] },
+      { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#dde6d5' }] },
+      { featureType: 'transit', stylers: [{ visibility: 'simplified' }] },
+    ],
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
+  });
+
+  const places = [
+    { name: "Sōwadō", type: "Izakaya", area: "Hiroo", lat: 35.6480, lng: 139.7153, cat: "r" },
+    { name: "Sakai Shokai", type: "Izakaya", area: "Shibuya", lat: 35.6576, lng: 139.7049, cat: "r" },
+    { name: "Goryū Kubo", type: "Kaiseki", area: "Nishi-Azabu", lat: 35.6606, lng: 139.7234, cat: "r" },
+    { name: "Pizza Marumo", type: "Pizza", area: "Ebisu", lat: 35.6453, lng: 139.7085, cat: "r" },
+    { name: "400°C", type: "Pizza", area: "Kagurazaka", lat: 35.7002, lng: 139.7394, cat: "r" },
+    { name: "Ginza Shinohara", type: "Kaiseki", area: "Ginza", lat: 35.6730, lng: 139.7678, cat: "r" },
+    { name: "Ushimatsu", type: "Yakiniku", area: "Nishi-Azabu", lat: 35.6571, lng: 139.7240, cat: "r" },
+    { name: "Savoy", type: "Pizza", area: "Azabu-Jūban", lat: 35.6549, lng: 139.7365, cat: "r" },
+    { name: "Aramaki", type: "Yakitori", area: "Higashi-Azabu", lat: 35.6557, lng: 139.7444, cat: "r" },
+    { name: "Yakitori Omino", type: "Yakitori", area: "Oshiage", lat: 35.7099, lng: 139.8159, cat: "r" },
+    { name: "Omino Kamiyacho", type: "Yakitori", area: "Kamiyacho", lat: 35.6642, lng: 139.7467, cat: "r" },
+    { name: "Omino Tsubaki", type: "Yakitori", area: "Kyobashi", lat: 35.6761, lng: 139.7705, cat: "r" },
+    { name: "Kiyota", type: "Sushi", area: "Ginza", lat: 35.6715, lng: 139.7610, cat: "r" },
+    { name: "Sushi Takeru", type: "Sushi", area: "Ginza", lat: 35.6682, lng: 139.7636, cat: "r" },
+    { name: "Bia", type: "Thai-Japanese", area: "Roppongi", lat: 35.6654, lng: 139.7279, cat: "r" },
+    { name: "LUONTO", type: "Italian · Wine", area: "Tsukiji", lat: 35.6700, lng: 139.7728, cat: "r" },
+    { name: "Honke Abeya", type: "Oyakodon", area: "Marunouchi", lat: 35.6795, lng: 139.7649, cat: "r" },
+    { name: "Gen Yamamoto", type: "Cocktail Omakase", area: "Azabu-Jūban", lat: 35.6565, lng: 139.7343, cat: "b" },
+    { name: "Bar Centifolia", type: "Cocktail Bar", area: "Azabu-Jūban", lat: 35.6564, lng: 139.7342, cat: "b" },
+    { name: "Bar Ishinohana", type: "Cocktail Bar", area: "Shibuya", lat: 35.6580, lng: 139.7050, cat: "b" },
+    { name: "Leaves Coffee", type: "Roastery", area: "Kuramae", lat: 35.7027, lng: 139.7978, cat: "c" },
+    { name: "Glitch Coffee", type: "Specialty Coffee", area: "Jimbocho", lat: 35.6937, lng: 139.7613, cat: "c" },
+    { name: "Koffee Mameya", type: "Coffee Boutique", area: "Omotesando", lat: 35.6684, lng: 139.7109, cat: "c" },
+  ];
+
+  const colors = { r: '#b8432f', b: '#6b5b95', c: '#5c3d2e' };
+  let openInfo = null;
+
+  places.forEach(p => {
+    const color = colors[p.cat] || '#b8432f';
+    const marker = new google.maps.Marker({
+      position: { lat: p.lat, lng: p.lng },
+      map: map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 7,
+        fillColor: color,
+        fillOpacity: 1,
+        strokeColor: '#fff',
+        strokeWeight: 2,
+      },
+      title: p.name,
+    });
+
+    const info = new google.maps.InfoWindow({
+      content: '<div style="font-family:DM Sans,sans-serif;padding:2px 0">' +
+        '<strong style="font-family:Cormorant Garamond,serif;font-size:16px;font-weight:600">' + p.name + '</strong>' +
+        '<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8a8578;margin-top:2px">' + p.type + ' · ' + p.area + '</div></div>',
+    });
+
+    marker.addListener('click', () => {
+      if (openInfo) openInfo.close();
+      info.open(map, marker);
+      openInfo = info;
+    });
+  });
+
+  // Legend
+  const legend = document.createElement('div');
+  legend.style.cssText = 'background:#f5f2ed;padding:8px 14px;margin:10px;border-radius:4px;font-family:DM Sans,sans-serif;font-size:11px;display:flex;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,0.1)';
+  legend.innerHTML = '<span><span style="color:#b8432f">●</span> Restaurant</span><span><span style="color:#6b5b95">●</span> Bar</span><span><span style="color:#5c3d2e">●</span> Coffee</span>';
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legend);
+}
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoOngUdwQvcia2lExJYWqGh6ezRi9KhPk&callback=initMap"></script>
+
+</body>
+</html>
