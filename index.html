@@ -14,6 +14,7 @@
     --divider: #d6d0c6;
     --accent: #b8432f;
     --bar: #6b5b95;
+    --wine: #8b2252;
     --coffee: #5c3d2e;
     --tag-bg: #eae6df;
   }
@@ -154,6 +155,7 @@
   .section-header h2::after { left: calc(100% + 16px); }
 
   .section-header.bar h2 { color: var(--bar); }
+  .section-header.wine h2 { color: var(--wine); }
   .section-header.coffee h2 { color: var(--coffee); }
 
   /* Container */
@@ -216,6 +218,7 @@
 
   .tag.cuisine { color: var(--accent); background: rgba(184, 67, 47, 0.08); }
   .tag.bar-tag { color: var(--bar); background: rgba(107, 91, 149, 0.08); }
+  .tag.wine-tag { color: var(--wine); background: rgba(139, 34, 82, 0.08); }
   .tag.coffee-tag { color: var(--coffee); background: rgba(92, 61, 46, 0.08); }
 
   .map-link {
@@ -353,12 +356,13 @@
 <div class="header">
   <h1>Tokyo Restaurant Guide</h1>
   <div class="header-rule"></div>
-  <div class="header-sub">24 curated places to eat, drink &amp; caffeinate</div>
+  <div class="header-sub">26 curated places to eat, drink &amp; caffeinate</div>
 </div>
 
 <nav class="nav">
   <a href="#restaurants">Restaurants</a>
   <a href="#bar">Bar</a>
+  <a href="#wine">Wine</a>
   <a href="#coffee">Coffee</a>
 </nav>
 
@@ -583,21 +587,6 @@
       </div>
     </div>
 
-    <div class="entry" id="luonto">
-      <div class="entry-header">
-        <div class="entry-name">LUONTO</div>
-        <div class="entry-meta">
-          <span class="tag cuisine">Italian · Wine</span>
-          <span class="tag">Tsukiji · near Shintomicho</span>
-          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=LUONTO+Tsukiji&query_place_id=ChIJoXxXpH2LGGARqoOsQVUnnoQ" target="_blank">↗ Map</a>
-          <a class="map-link" href="https://tabelog.com/en/tokyo/A1301/A130101/13243916/" target="_blank">↗ Tabelog</a>
-        </div>
-      </div>
-      <div class="entry-body">
-        A wine-driven Italian on a quiet Tsukiji side street, run by a caviste (cellar manager) who ages and curates every bottle himself. The name is Finnish for "nature" — a nod to the philosophy that great wine is an expression of its origins, and the restaurant should be a place to decompress and connect with that. The cellar leans heavily on wines that have hit their peak drinking window, regardless of region or style, which makes the by-the-glass selection unusually deep and interesting. The food is refined Italian built around seasonal Japanese ingredients — polenta and ragù, homemade pastas, clean preparations that let the wine lead. A proper wine dinner destination. Closed Wednesdays, Saturdays, and Sundays.
-      </div>
-    </div>
-
     <div class="entry" id="honke-abeya">
       <div class="entry-header">
         <div class="entry-name">Honke Abeya</div>
@@ -669,6 +658,61 @@
   </div>
 </div>
 
+<div id="wine">
+  <div class="section-header wine">
+    <h2>Wine</h2>
+  </div>
+
+  <div class="container">
+
+    <div class="entry" id="luonto">
+      <div class="entry-header">
+        <div class="entry-name">LUONTO</div>
+        <div class="entry-meta">
+          <span class="tag wine-tag">Italian · Wine</span>
+          <span class="tag">Tsukiji · near Shintomicho</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=LUONTO+Tsukiji&query_place_id=ChIJoXxXpH2LGGARqoOsQVUnnoQ" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1301/A130101/13243916/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        A wine-driven Italian on a quiet Tsukiji side street, run by a caviste (cellar manager) who ages and curates every bottle himself. The name is Finnish for "nature" — a nod to the philosophy that great wine is an expression of its origins, and the restaurant should be a place to decompress and connect with that. The cellar leans heavily on wines that have hit their peak drinking window, regardless of region or style, which makes the by-the-glass selection unusually deep and interesting. The food is refined Italian built around seasonal Japanese ingredients — polenta and ragù, homemade pastas, clean preparations that let the wine lead. A proper wine dinner destination. Closed Wednesdays, Saturdays, and Sundays.
+      </div>
+    </div>
+
+    <div class="entry" id="ararat">
+      <div class="entry-header">
+        <div class="entry-name">Restaurant Ararat</div>
+        <div class="entry-meta">
+          <span class="tag wine-tag">French · Wine</span>
+          <span class="tag">Toranomon</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Restaurant+Ararat+Toranomon" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1308/A130802/13256085/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Behind a dark, unmarked door across from a pharmacy in Toranomon, Ararat operates more like a private dining room than a restaurant. Owner-sommelier Michihito Higashihara — named Sommelier de l'Année by Le Chef magazine in 2017 — spent eight years in France and returned to Tokyo with a cellar of over 600 wines and a vision for intimate, wine-first dining. The format is coursed French bistro — think perfectly executed sirloin, silky crème caramel — served to just one or two parties per evening across five tables. The menu is kept intentionally simple so the wine can lead. Reservations required; ten seats maximum.
+      </div>
+    </div>
+
+    <div class="entry" id="gout-de-jaune">
+      <div class="entry-header">
+        <div class="entry-name">Goût de Jaune</div>
+        <div class="entry-meta">
+          <span class="tag wine-tag">Jura Wine Bar</span>
+          <span class="tag">Akasaka · near Roppongi Itchome</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Gout+de+Jaune&query_place_id=ChIJveGqAIWLGGARFWHxbO2Kclg" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1308/A130802/13213209/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Possibly the only bar in the world dedicated exclusively to wines from the Jura region of France. Sommelier Shohei Miura opened this 13-seat basement space in 2017 and has since assembled a collection of thousands of bottles, with over ten varieties of Vin Jaune available by the glass at any given time — spanning vintages from the 1950s to the present. The pairing insight is unexpected: Miura recognized shared flavor compounds between Vin Jaune and Shaoxing wine, so the food menu blends French bistro and Chinese dishes alongside Jura classics like coq au vin jaune and long-aged Comté. An obsessive, singular place. Reservations via Instagram DM. Closed Sundays.
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div id="coffee">
   <div class="section-header coffee">
     <h2>Coffee</h2>
@@ -728,8 +772,9 @@
   <div class="footer-kanji">食</div>
   <p>Curated with care. Eat well.</p>
   <div class="footer-counts">
-    <span>18 Restaurants</span>
+    <span>17 Restaurants</span>
     <span>3 Bars</span>
+    <span>3 Wine</span>
     <span>3 Coffee</span>
   </div>
 </div>
@@ -809,17 +854,19 @@ function initMap() {
     { name: "Kiyota", type: "Sushi", area: "Ginza", lat: 35.6715, lng: 139.7610, cat: "r", slug: "kiyota" },
     { name: "Sushi Takeru", type: "Sushi", area: "Ginza", lat: 35.6682, lng: 139.7636, cat: "r", slug: "sushi-takeru" },
     { name: "Bia", type: "Thai-Japanese", area: "Roppongi", lat: 35.6654, lng: 139.7279, cat: "r", slug: "bia" },
-    { name: "LUONTO", type: "Italian · Wine", area: "Tsukiji", lat: 35.6700, lng: 139.7728, cat: "r", slug: "luonto" },
     { name: "Honke Abeya", type: "Oyakodon", area: "Marunouchi", lat: 35.6795, lng: 139.7649, cat: "r", slug: "honke-abeya" },
     { name: "Gen Yamamoto", type: "Cocktail Omakase", area: "Azabu-Jūban", lat: 35.6565, lng: 139.7343, cat: "b", slug: "gen-yamamoto" },
     { name: "Bar Centifolia", type: "Cocktail Bar", area: "Azabu-Jūban", lat: 35.6564, lng: 139.7342, cat: "b", slug: "bar-centifolia" },
     { name: "Bar Ishinohana", type: "Cocktail Bar", area: "Shibuya", lat: 35.6580, lng: 139.7050, cat: "b", slug: "bar-ishinohana" },
+    { name: "LUONTO", type: "Italian · Wine", area: "Tsukiji", lat: 35.6700, lng: 139.7728, cat: "w", slug: "luonto" },
+    { name: "Ararat", type: "French · Wine", area: "Toranomon", lat: 35.6692, lng: 139.7477, cat: "w", slug: "ararat" },
+    { name: "Goût de Jaune", type: "Jura Wine Bar", area: "Akasaka", lat: 35.6686, lng: 139.7400, cat: "w", slug: "gout-de-jaune" },
     { name: "Leaves Coffee", type: "Roastery", area: "Kuramae", lat: 35.7027, lng: 139.7978, cat: "c", slug: "leaves-coffee" },
     { name: "Glitch Coffee", type: "Specialty Coffee", area: "Jimbocho", lat: 35.6937, lng: 139.7613, cat: "c", slug: "glitch-coffee" },
     { name: "Koffee Mameya", type: "Coffee Boutique", area: "Omotesando", lat: 35.6684, lng: 139.7109, cat: "c", slug: "koffee-mameya" },
   ];
 
-  const colors = { r: '#b8432f', b: '#6b5b95', c: '#5c3d2e' };
+  const colors = { r: '#b8432f', b: '#6b5b95', w: '#8b2252', c: '#5c3d2e' };
   let openInfo = null;
 
   places.forEach(p => {
@@ -861,7 +908,7 @@ function initMap() {
   // Legend
   const legend = document.createElement('div');
   legend.style.cssText = 'background:#f5f2ed;padding:8px 14px;margin:10px;border-radius:4px;font-family:DM Sans,sans-serif;font-size:11px;display:flex;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,0.1)';
-  legend.innerHTML = '<span><span style="color:#b8432f">●</span> Restaurant</span><span><span style="color:#6b5b95">●</span> Bar</span><span><span style="color:#5c3d2e">●</span> Coffee</span>';
+  legend.innerHTML = '<span><span style="color:#b8432f">●</span> Restaurant</span><span><span style="color:#6b5b95">●</span> Bar</span><span><span style="color:#8b2252">●</span> Wine</span><span><span style="color:#5c3d2e">●</span> Coffee</span>';
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legend);
 }
 </script>
