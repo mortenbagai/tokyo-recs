@@ -34,10 +34,11 @@
 
   /* Header */
   .header {
-    padding: 72px 24px 56px;
+    padding: 80px 24px 64px;
     text-align: center;
     border-bottom: 1px solid var(--divider);
     position: relative;
+    overflow: hidden;
   }
 
   .header::before {
@@ -50,13 +51,24 @@
     margin-bottom: 28px;
   }
 
+  .header::after {
+    content: '食 飲 珈琲';
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--divider);
+  }
+
   .header h1 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
-    font-size: clamp(36px, 6vw, 56px);
+    font-size: clamp(38px, 6.5vw, 60px);
     letter-spacing: -0.5px;
-    line-height: 1.1;
-    margin-bottom: 20px;
+    line-height: 1.08;
+    margin-bottom: 24px;
   }
 
   .header-rule {
@@ -69,7 +81,7 @@
 
   .header-sub {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
+    font-size: 17px;
     font-style: italic;
     color: var(--muted);
     letter-spacing: 0.5px;
@@ -126,7 +138,7 @@
 
   /* Section headers */
   .section-header {
-    padding: 72px 24px 36px;
+    padding: 80px 24px 40px;
     text-align: center;
   }
 
@@ -135,10 +147,11 @@
     font-weight: 500;
     font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
     color: var(--muted);
     position: relative;
     display: inline-block;
+    padding: 0 4px;
   }
 
   .section-header h2::before,
@@ -146,7 +159,7 @@
     content: '';
     position: absolute;
     top: 50%;
-    width: 32px;
+    width: 40px;
     height: 1px;
     background: var(--divider);
   }
@@ -167,12 +180,18 @@
 
   /* Entries */
   .entry {
-    padding: 40px 0;
+    padding: 44px 0 44px 20px;
     border-bottom: 1px solid var(--divider);
+    border-left: 2px solid transparent;
     opacity: 0;
     transform: translateY(16px);
     animation: fadeInUp 0.5s ease forwards;
-    transition: background 0.4s ease;
+    transition: background 0.4s ease, border-color 0.3s ease;
+    position: relative;
+  }
+
+  .entry:hover {
+    border-left-color: var(--warm);
   }
 
   .entry:last-child { border-bottom: none; }
@@ -206,20 +225,21 @@
 
   .tag {
     display: inline-block;
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--muted);
     background: var(--tag-bg);
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.04);
     transition: background 0.2s;
   }
 
-  .tag.cuisine { color: var(--accent); background: rgba(184, 67, 47, 0.08); }
-  .tag.bar-tag { color: var(--bar); background: rgba(107, 91, 149, 0.08); }
-  .tag.wine-tag { color: var(--wine); background: rgba(139, 34, 82, 0.08); }
-  .tag.coffee-tag { color: var(--coffee); background: rgba(92, 61, 46, 0.08); }
+  .tag.cuisine { color: var(--accent); background: rgba(184, 67, 47, 0.06); border-color: rgba(184, 67, 47, 0.1); }
+  .tag.bar-tag { color: var(--bar); background: rgba(107, 91, 149, 0.06); border-color: rgba(107, 91, 149, 0.1); }
+  .tag.wine-tag { color: var(--wine); background: rgba(139, 34, 82, 0.06); border-color: rgba(139, 34, 82, 0.1); }
+  .tag.coffee-tag { color: var(--coffee); background: rgba(92, 61, 46, 0.06); border-color: rgba(92, 61, 46, 0.1); }
 
   .map-link {
     font-size: 11px;
@@ -228,6 +248,7 @@
     letter-spacing: 0.5px;
     padding: 3px 8px;
     border-radius: 3px;
+    cursor: pointer;
     transition: color 0.2s, background 0.2s;
   }
 
@@ -238,8 +259,20 @@
 
   .entry-body {
     font-size: 15px;
-    line-height: 1.75;
+    line-height: 1.78;
     color: #3a3a36;
+    max-width: 62ch;
+  }
+
+  .entry-body::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2em;
+    float: left;
+    line-height: 0.8;
+    margin-right: 8px;
+    margin-top: 4px;
+    color: var(--ink);
+    font-weight: 600;
   }
 
   .entry-body strong {
@@ -272,22 +305,35 @@
   /* Footer */
   .footer {
     text-align: center;
-    padding: 72px 24px;
+    padding: 80px 24px;
     border-top: 1px solid var(--divider);
-    margin-top: 32px;
+    margin-top: 40px;
+    position: relative;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 1px;
+    background: var(--warm);
   }
 
   .footer-kanji {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    letter-spacing: 6px;
+    font-size: 20px;
+    letter-spacing: 8px;
     color: var(--warm);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    opacity: 0.7;
   }
 
   .footer p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
+    font-size: 18px;
     font-style: italic;
     color: var(--muted);
     letter-spacing: 0.5px;
@@ -308,11 +354,12 @@
 
   /* Note box */
   .note-box {
-    background: rgba(196, 168, 130, 0.1);
+    background: rgba(196, 168, 130, 0.08);
     border-left: 2px solid var(--warm);
     padding: 16px 20px;
-    margin: 40px 0;
-    font-size: 14px;
+    margin: 24px 0 0;
+    font-size: 13px;
+    font-style: italic;
     color: var(--muted);
     line-height: 1.7;
   }
@@ -324,6 +371,14 @@
     border-bottom: 1px solid var(--divider);
   }
 
+  /* Focus states */
+  .nav a:focus-visible,
+  .map-link:focus-visible {
+    outline: 2px solid var(--warm);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -332,21 +387,25 @@
       transform: none;
       animation: none;
     }
+    .entry:hover { border-left-color: transparent; }
     .nav a::after { transition: none; }
     .tag, .map-link { transition: none; }
   }
 
   /* Mobile */
   @media (max-width: 600px) {
-    .header { padding: 56px 20px 44px; }
+    .header { padding: 60px 20px 48px; }
+    .header::after { display: none; }
     .entry-name { font-size: 24px; }
-    .nav { gap: 20px; padding: 14px 20px; }
+    .entry { padding-left: 16px; }
+    .entry-body::first-letter { font-size: 2.6em; }
+    .nav { gap: 16px; padding: 14px 20px; }
     .nav a { font-size: 11px; letter-spacing: 1.5px; }
-    .section-header { padding: 56px 24px 28px; }
+    .section-header { padding: 60px 24px 32px; }
     .section-header h2::before,
-    .section-header h2::after { width: 20px; }
+    .section-header h2::after { width: 24px; }
     #map { height: 320px; }
-    .footer-counts { gap: 16px; flex-wrap: wrap; }
+    .footer-counts { gap: 14px; flex-wrap: wrap; }
   }
 
 </style>
