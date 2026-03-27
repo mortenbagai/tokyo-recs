@@ -16,6 +16,7 @@
     --bar: #7b6b8a;
     --wine: #8b3a4a;
     --coffee: #5c3d2e;
+    --hotel: #2a7d6e;
     --tag-bg: #eae6df;
   }
 
@@ -171,6 +172,7 @@
   .section-header.bar h2 { color: var(--bar); }
   .section-header.wine h2 { color: var(--wine); }
   .section-header.coffee h2 { color: var(--coffee); }
+  .section-header.hotel h2 { color: var(--hotel); }
 
   /* Container */
   .container {
@@ -261,6 +263,7 @@
   .tag.bar-tag { color: var(--bar); background: rgba(123, 107, 138, 0.06); border-color: rgba(123, 107, 138, 0.1); }
   .tag.wine-tag { color: var(--wine); background: rgba(139, 58, 74, 0.06); border-color: rgba(139, 58, 74, 0.1); }
   .tag.coffee-tag { color: var(--coffee); background: rgba(92, 61, 46, 0.06); border-color: rgba(92, 61, 46, 0.1); }
+  .tag.hotel-tag { color: var(--hotel); background: rgba(42, 125, 110, 0.06); border-color: rgba(42, 125, 110, 0.1); }
 
   .map-link {
     font-size: 11px;
@@ -479,7 +482,7 @@
 <div class="header">
   <h1>Tokyo Restaurant Guide</h1>
   <div class="header-rule"></div>
-  <div class="header-sub">30 curated places to eat, drink &amp; caffeinate</div>
+  <div class="header-sub">36 curated places to eat, drink, caffeinate &amp; sleep</div>
 </div>
 
 <nav class="nav">
@@ -487,6 +490,7 @@
   <a href="#bar">Bar</a>
   <a href="#wine">Wine</a>
   <a href="#coffee">Coffee</a>
+  <a href="#hotels">Hotels</a>
 </nav>
 
 <div id="map"></div>
@@ -1035,14 +1039,127 @@
   </div>
 </div>
 
+<div id="hotels">
+  <div class="section-header hotel">
+    <h2>Hotels</h2>
+  </div>
+
+  <div class="container">
+
+    <div class="entry" id="grand-hyatt-tokyo">
+      <img class="entry-photo" src="images/grand-hyatt-tokyo.jpg" alt="Grand Hyatt Tokyo" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Grand Hyatt Tokyo</div>
+        <div class="entry-meta">
+          <span class="tag hotel-tag">Luxury Hotel</span>
+          <span class="tag">Roppongi · Roppongi <span class="line-badge" title="Hibiya Line" style="background:#9CAEB7">H</span><span class="line-badge" title="Oedo Line" style="background:#B6007A">E</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Grand+Hyatt+Tokyo&query_place_id=ChIJSUuI2buJGGARsWTQED5lKJU" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Anchored inside Roppongi Hills — Mori Building's sprawling city-within-a-city — the Grand Hyatt feels less like a hotel lobby and more like a gallery entrance, with Jun Kaneko's massive ceramic heads greeting you at the door. The 387 rooms lean into warm mahogany and stone rather than the chrome minimalism of its competitors. Ten restaurants and bars cover serious range, from The Oak Door (one of Tokyo's best hotel steakhouses) to a proper French bistro. The Nagomi Spa's red granite pool is genuinely impressive. Its location cannot be beaten for nightlife-adjacent luxury: Mori Art Museum upstairs, and Roppongi's bar scene steps away.
+      </div>
+      </div>
+    </div>
+
+    <div class="entry" id="andaz-tokyo">
+      <img class="entry-photo" src="images/andaz-tokyo.jpg" alt="Andaz Tokyo" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Andaz Tokyo</div>
+        <div class="entry-meta">
+          <span class="tag hotel-tag">Luxury Hotel</span>
+          <span class="tag">Toranomon · Toranomon Hills <span class="line-badge" title="Hibiya Line" style="background:#9CAEB7">H</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Andaz+Tokyo+Toranomon+Hills" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Occupying floors 47–52 of the original Toranomon Hills Mori Tower (2014), the Andaz is Hyatt's "anti-grand-hotel" concept executed brilliantly. Tony Chi and Shinichiro Ogata designed interiors using washi paper, rich wood, and floor-to-ceiling windows that make the 164 rooms feel like a well-appointed Tokyo apartment rather than a hotel. At 50 square meters, even the base rooms are enormous by Tokyo standards. The 52nd-floor rooftop — a first for a Tokyo high-rise hotel — includes an open-air bar and a space modeled on a traditional Japanese garden. This is the one for design-minded travelers who find the Ritz-Carlton too formal.
+      </div>
+      </div>
+    </div>
+
+    <div class="entry" id="toranomon-hills-hotel">
+      <img class="entry-photo" src="images/toranomon-hills-hotel.jpg" alt="Hotel Toranomon Hills" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Hotel Toranomon Hills</div>
+        <div class="entry-meta">
+          <span class="tag hotel-tag">Luxury Hotel</span>
+          <span class="tag">Toranomon · Toranomon Hills <span class="line-badge" title="Hibiya Line" style="background:#9CAEB7">H</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Toranomon+Hills+Tokyo" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The newer, separate hotel from the Andaz — opened December 2023 inside the Toranomon Hills Station Tower. Danish studio Space Copenhagen designed all 205 rooms with Scandinavian-meets-Tokyo restraint: muted tones, natural materials, and six-meter ceilings in the lounge. The headline restaurant is Le Pristine Tokyo, a casual fine-dining spot from Michelin-starred Belgian chef Sergio Herman — his first Tokyo outpost. The 30 suites come with Japanese-style soaking tubs. A distinctly different proposition from the Andaz next door: younger, more Nordic, more food-forward.
+      </div>
+      </div>
+    </div>
+
+    <div class="entry" id="park-hyatt-tokyo">
+      <img class="entry-photo" src="images/park-hyatt-tokyo.jpg" alt="Park Hyatt Tokyo" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Park Hyatt Tokyo</div>
+        <div class="entry-meta">
+          <span class="tag hotel-tag">Luxury Hotel</span>
+          <span class="tag">Nishi-Shinjuku · Shinjuku <span class="line-badge" title="Oedo Line" style="background:#B6007A">E</span><span class="line-badge" title="Marunouchi Line" style="background:#E60012">M</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Park+Hyatt+Tokyo" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The Lost in Translation hotel, reopened December 2025 after a 19-month renovation by Paris-based Jouin Manku. Occupying floors 39–52 of Kenzo Tange's 1994 Shinjuku Park Tower, it now has 171 rooms with reimagined interiors heavy on marble and natural wood. The iconic New York Grill &amp; Bar on the 52nd floor — where Bill Murray nursed whisky while a jazz combo played against the Shinjuku skyline — has been restored to its original spirit. Kozue, the Japanese restaurant, remains, and a new Girandole by Alain Ducasse replaces the old French spot. The pool with its vertiginous city views is still one of Tokyo's best hotel amenities.
+      </div>
+      </div>
+    </div>
+
+    <div class="entry" id="ana-intercontinental">
+      <img class="entry-photo" src="images/ana-intercontinental.jpg" alt="ANA InterContinental Tokyo" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">ANA InterContinental Tokyo</div>
+        <div class="entry-meta">
+          <span class="tag hotel-tag">Luxury Hotel</span>
+          <span class="tag">Akasaka · Tameike-Sanno <span class="line-badge" title="Ginza Line" style="background:#F39700">G</span><span class="line-badge" title="Namboku Line" style="background:#00AC9B">N</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ANA+InterContinental+Tokyo" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        The workhorse of Tokyo luxury hotels. Built in 1986 within Mori Building's pioneering Ark Hills complex — Japan's first large-scale private-sector urban redevelopment — it was rebranded to InterContinental in 2007. At 801 rooms it is by far the largest on this list, which means it handles big groups and conferences without breaking a sweat. The location between Akasaka and Roppongi is genuinely excellent for transit, with two metro stations under two minutes away. Suntory Hall, one of the world's great concert venues, is next door. It lacks the design cachet of the newer properties, but the rooftop pool is a summer highlight.
+      </div>
+      </div>
+    </div>
+
+    <div class="entry" id="ritz-carlton-tokyo">
+      <img class="entry-photo" src="images/ritz-carlton-tokyo.jpg" alt="The Ritz-Carlton, Tokyo" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">The Ritz-Carlton, Tokyo</div>
+        <div class="entry-meta">
+          <span class="tag hotel-tag">Luxury Hotel</span>
+          <span class="tag">Roppongi · Roppongi <span class="line-badge" title="Oedo Line" style="background:#B6007A">E</span><span class="line-badge" title="Hibiya Line" style="background:#9CAEB7">H</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=The+Ritz-Carlton+Tokyo" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Perched on floors 45–53 of Midtown Tower — Tokyo's tallest building when it opened in 2007 — the Ritz-Carlton delivers the most classically grand hotel experience on this list. The lobby on 45 is all black-and-cream marble with a towering bamboo installation, and many of the 245 rooms offer views of Mount Fuji on clear days. The recently renovated suites feature Nishijin brocade headboards, tatami flooring, and sliding shoji doors — proper Japanese craft, not theme-park japonisme. Tokyo Midtown itself houses the Suntory Museum of Art, 21_21 Design Sight, and serious shopping. The most traditionally luxurious option.
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="footer">
   <div class="footer-kanji">食</div>
   <p>Curated with care. Eat well.</p>
   <div class="footer-counts">
     <span>19 Restaurants</span>
-    <span>3 Bars</span>
+    <span>4 Bars</span>
     <span>3 Wine</span>
     <span>3 Coffee</span>
+    <span>6 Hotels</span>
   </div>
 </div>
 
@@ -1135,19 +1252,33 @@ function initMap() {
     { name: "Leaves Coffee", type: "Roastery", area: "Kuramae", lat: 35.7027, lng: 139.7978, cat: "c", slug: "leaves-coffee" },
     { name: "Glitch Coffee", type: "Specialty Coffee", area: "Jimbocho", lat: 35.6937, lng: 139.7613, cat: "c", slug: "glitch-coffee" },
     { name: "Koffee Mameya", type: "Coffee Boutique", area: "Omotesando", lat: 35.6684, lng: 139.7109, cat: "c", slug: "koffee-mameya" },
+    { name: "Grand Hyatt Tokyo", type: "Luxury Hotel", area: "Roppongi", lat: 35.6595, lng: 139.7292, cat: "h", slug: "grand-hyatt-tokyo" },
+    { name: "Andaz Tokyo", type: "Luxury Hotel", area: "Toranomon", lat: 35.6660, lng: 139.7490, cat: "h", slug: "andaz-tokyo" },
+    { name: "Hotel Toranomon Hills", type: "Luxury Hotel", area: "Toranomon", lat: 35.6663, lng: 139.7505, cat: "h", slug: "toranomon-hills-hotel" },
+    { name: "Park Hyatt Tokyo", type: "Luxury Hotel", area: "Nishi-Shinjuku", lat: 35.6868, lng: 139.6910, cat: "h", slug: "park-hyatt-tokyo" },
+    { name: "ANA InterContinental Tokyo", type: "Luxury Hotel", area: "Akasaka", lat: 35.6718, lng: 139.7410, cat: "h", slug: "ana-intercontinental" },
+    { name: "The Ritz-Carlton, Tokyo", type: "Luxury Hotel", area: "Roppongi", lat: 35.6654, lng: 139.7312, cat: "h", slug: "ritz-carlton-tokyo" },
   ];
 
-  const colors = { r: '#b8432f', b: '#7b6b8a', w: '#8b3a4a', c: '#5c3d2e' };
+  const colors = { r: '#c0442a', b: '#7b5ea7', w: '#a63d56', c: '#6b4226', h: '#2a7d6e' };
+  const shapes = {
+    r: { path: google.maps.SymbolPath.CIRCLE, scale: 7 },
+    b: { path: 'M 0,-8 L 6,0 0,8 -6,0 Z', scale: 1 },
+    w: { path: 'M 0,-8 L 7,6 -7,6 Z', scale: 1 },
+    c: { path: 'M -5,-5 L 5,-5 5,5 -5,5 Z', scale: 1 },
+    h: { path: 'M 0,-9 L 2.1,-2.8 8.6,-2.8 3.2,1.1 5.3,7.3 0,3.4 -5.3,7.3 -3.2,1.1 -8.6,-2.8 -2.1,-2.8 Z', scale: 1 },
+  };
   let openInfo = null;
 
   places.forEach(p => {
-    const color = colors[p.cat] || '#b8432f';
+    const color = colors[p.cat] || '#c0442a';
+    const shape = shapes[p.cat] || shapes.r;
     const marker = new google.maps.Marker({
       position: { lat: p.lat, lng: p.lng },
       map: map,
       icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 7,
+        path: shape.path,
+        scale: shape.scale,
         fillColor: color,
         fillOpacity: 1,
         strokeColor: '#fff',
@@ -1179,7 +1310,7 @@ function initMap() {
   // Legend
   const legend = document.createElement('div');
   legend.style.cssText = 'background:#f5f2ed;padding:8px 16px;margin:10px;border-radius:4px;font-family:DM Sans,sans-serif;font-size:11px;display:flex;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08)';
-  legend.innerHTML = '<span><span style="color:#b8432f">●</span> Restaurant</span><span><span style="color:#7b6b8a">●</span> Bar</span><span><span style="color:#8b3a4a">●</span> Wine</span><span><span style="color:#5c3d2e">●</span> Coffee</span>';
+  legend.innerHTML = '<span><span style="color:#c0442a">●</span> Restaurant</span><span><span style="color:#7b5ea7">◆</span> Bar</span><span><span style="color:#a63d56">▲</span> Wine</span><span><span style="color:#6b4226">■</span> Coffee</span><span><span style="color:#2a7d6e">★</span> Hotel</span>';
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legend);
 }
 </script>
