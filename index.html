@@ -735,7 +735,7 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
       entry.target.style.animationDelay = `${i * 0.06}s`;
-      entry.target.classList.add('visible');
+      entry.target.style.animationPlayState = 'running';
       observer.unobserve(entry.target);
     }
   });
@@ -745,9 +745,6 @@ document.querySelectorAll('.entry').forEach(el => {
   el.style.animationPlayState = 'paused';
   observer.observe(el);
 });
-
-// Add .visible to trigger animation
-document.head.insertAdjacentHTML('beforeend', '<style>.entry.visible { animation-play-state: running; }</style>');
 
 // Nav scroll shadow + active section
 const nav = document.querySelector('.nav');
