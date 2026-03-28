@@ -1579,6 +1579,141 @@ function initMap() {
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legend);
 }
 </script>
+<script>
+const MAPS_EMBED_KEY = 'AIzaSyBDS_uyZVxZK8wxFNESVP3RITS3UAgoLcs';
+
+let directionsDestSlug = null;
+let directionsMode = 'transit';
+
+function getPlaces() {
+  return window._places || [];
+}
+
+function getHotels() {
+  return getPlaces().filter(p => p.cat === 'h').sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function getPlaceBySlug(slug) {
+  return getPlaces().find(p => p.slug === slug);
+}
+
+function openDirections(slug) {
+  const place = getPlaceBySlug(slug);
+  if (!place) return;
+
+  directionsDestSlug = slug;
+  directionsMode = 'transit';
+
+  // Set title
+  document.getElementById('directions-title').textContent = 'Directions to ' + place.name;
+
+  // Populate hotel dropdown
+  const select = document.getElementById('directions-hotel-select');
+  const savedHotel = localStorage.getItem('directions-hotel') || '';
+  select.innerHTML = '<option value="">Select your hotel...</option>';
+  getHotels().forEach(h => {
+    const opt = document.createElement('option');
+    opt.value = h.slug;
+    opt.textContent = h.name;
+    if (h.slug === savedHotel) opt.selected = true;
+    select.appendChild(opt);
+  });
+
+  // Reset mode buttons
+  document.querySelectorAll('.directions-mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === 'transit');
+  });
+
+  // Show modal
+  document.getElementById('directions-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // If hotel was restored from localStorage, load the embed
+  if (savedHotel && getPlaceBySlug(savedHotel)) {
+    updateEmbed();
+  } else {
+    showPlaceholder();
+  }
+}
+
+function closeDirections() {
+  document.getElementById('directions-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+  // Clear iframe to stop any ongoing loads
+  document.getElementById('directions-embed-container').innerHTML =
+    '<div class="directions-placeholder">Select your hotel above to see directions</div>';
+}
+
+function onHotelChange() {
+  const slug = document.getElementById('directions-hotel-select').value;
+  if (slug) {
+    localStorage.setItem('directions-hotel', slug);
+    updateEmbed();
+  } else {
+    showPlaceholder();
+  }
+}
+
+function setMode(mode) {
+  directionsMode = mode;
+  document.querySelectorAll('.directions-mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  const hotelSlug = document.getElementById('directions-hotel-select').value;
+  if (hotelSlug) updateEmbed();
+}
+
+function updateEmbed() {
+  const hotelSlug = document.getElementById('directions-hotel-select').value;
+  const hotel = getPlaceBySlug(hotelSlug);
+  const dest = getPlaceBySlug(directionsDestSlug);
+  if (!hotel || !dest) return;
+
+  const src = 'https://www.google.com/maps/embed/v1/directions'
+    + '?key=' + MAPS_EMBED_KEY
+    + '&origin=' + hotel.lat + ',' + hotel.lng
+    + '&destination=' + dest.lat + ',' + dest.lng
+    + '&mode=' + directionsMode;
+
+  document.getElementById('directions-embed-container').innerHTML =
+    '<iframe class="directions-embed" src="' + src + '" allowfullscreen loading="lazy"></iframe>';
+}
+
+function showPlaceholder() {
+  document.getElementById('directions-embed-container').innerHTML =
+    '<div class="directions-placeholder">Select your hotel above to see directions</div>';
+}
+
+// Close on backdrop click
+document.getElementById('directions-backdrop').addEventListener('click', closeDirections);
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDirections();
+});
+
+// Inject "Directions" links into all non-hotel entries
+function injectDirectionsLinks() {
+  const nonHotelPlaces = getPlaces().filter(p => p.cat !== 'h');
+  nonHotelPlaces.forEach(p => {
+    const entry = document.getElementById(p.slug);
+    if (!entry) return;
+    const meta = entry.querySelector('.entry-meta');
+    if (!meta) return;
+    // Don't add duplicate
+    if (meta.querySelector('.directions-link')) return;
+    const link = document.createElement('a');
+    link.className = 'map-link directions-link';
+    link.href = '#';
+    link.textContent = '↗ Directions';
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      openDirections(p.slug);
+    });
+    meta.appendChild(link);
+  });
+}
+</script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDS_uyZVxZK8wxFNESVP3RITS3UAgoLcs&callback=initMap"></script>
 
 <div class="directions-backdrop" id="directions-backdrop">
