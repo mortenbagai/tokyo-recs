@@ -1478,7 +1478,7 @@ function initMap() {
     fullscreenControl: false,
   });
 
-  const places = [
+  window._places = [
     { name: "Sōwadō", type: "Izakaya", area: "Hiroo", lat: 35.6480, lng: 139.7153, cat: "r", slug: "sowado" },
     { name: "Sakai Shokai", type: "Izakaya", area: "Shibuya", lat: 35.6576, lng: 139.7049, cat: "r", slug: "sakai-shokai" },
     { name: "Goryū Kubo", type: "Kaiseki", area: "Nishi-Azabu", lat: 35.6606, lng: 139.7234, cat: "r", slug: "goryu-kubo" },
@@ -1535,7 +1535,7 @@ function initMap() {
   };
   let openInfo = null;
 
-  places.forEach(p => {
+  window._places.forEach(p => {
     const color = colors[p.cat] || '#c0442a';
     const shape = shapes[p.cat] || shapes.r;
     const marker = new google.maps.Marker({
@@ -1577,6 +1577,9 @@ function initMap() {
   legend.style.cssText = 'background:#f5f2ed;padding:8px 16px;margin:10px;border-radius:4px;font-family:DM Sans,sans-serif;font-size:11px;display:flex;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08)';
   legend.innerHTML = '<span><span style="color:#c0442a">●</span> Restaurant</span><span><span style="color:#7b5ea7">◆</span> Bar</span><span><span style="color:#a63d56">▲</span> Wine</span><span><span style="color:#6b4226">■</span> Coffee</span><span><span style="color:#2a7d6e">★</span> Hotel</span>';
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legend);
+
+  // Inject directions links into non-hotel entries
+  injectDirectionsLinks();
 }
 </script>
 <script>
