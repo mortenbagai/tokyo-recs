@@ -1582,13 +1582,13 @@ function initMap() {
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDS_uyZVxZK8wxFNESVP3RITS3UAgoLcs&callback=initMap"></script>
 
 <div class="directions-backdrop" id="directions-backdrop">
-  <div class="directions-modal" onclick="event.stopPropagation()">
+  <div class="directions-modal" role="dialog" aria-modal="true" aria-labelledby="directions-title" onclick="event.stopPropagation()">
     <div class="directions-header">
       <h3 id="directions-title">Directions</h3>
-      <button class="directions-close" onclick="closeDirections()">&times;</button>
+      <button class="directions-close" onclick="closeDirections()" aria-label="Close directions">&times;</button>
     </div>
     <div class="directions-hotel">
-      <label>From</label>
+      <label for="directions-hotel-select">From</label>
       <select id="directions-hotel-select" onchange="onHotelChange()">
         <option value="">Select your hotel...</option>
       </select>
