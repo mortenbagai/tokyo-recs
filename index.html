@@ -1582,6 +1582,29 @@ function initMap() {
   injectDirectionsLinks();
 }
 </script>
+
+<div class="directions-backdrop" id="directions-backdrop">
+  <div class="directions-modal" role="dialog" aria-modal="true" aria-labelledby="directions-title" onclick="event.stopPropagation()">
+    <div class="directions-header">
+      <h3 id="directions-title">Directions</h3>
+      <button class="directions-close" onclick="closeDirections()" aria-label="Close directions">&times;</button>
+    </div>
+    <div class="directions-hotel">
+      <label for="directions-hotel-select">From</label>
+      <select id="directions-hotel-select" onchange="onHotelChange()">
+        <option value="">Select your hotel...</option>
+      </select>
+    </div>
+    <div class="directions-modes">
+      <button class="directions-mode-btn active" data-mode="transit" onclick="setMode('transit')">🚇 Transit</button>
+      <button class="directions-mode-btn" data-mode="driving" onclick="setMode('driving')">🚗 Car</button>
+    </div>
+    <div id="directions-embed-container">
+      <div class="directions-placeholder">Select your hotel above to see directions</div>
+    </div>
+  </div>
+</div>
+
 <script>
 const MAPS_EMBED_KEY = 'AIzaSyBDS_uyZVxZK8wxFNESVP3RITS3UAgoLcs';
 
@@ -1643,8 +1666,7 @@ function closeDirections() {
   document.getElementById('directions-backdrop').classList.remove('open');
   document.body.style.overflow = '';
   // Clear iframe to stop any ongoing loads
-  document.getElementById('directions-embed-container').innerHTML =
-    '<div class="directions-placeholder">Select your hotel above to see directions</div>';
+  showPlaceholder();
 }
 
 function onHotelChange() {
@@ -1672,19 +1694,32 @@ function updateEmbed() {
   const dest = getPlaceBySlug(directionsDestSlug);
   if (!hotel || !dest) return;
 
-  const src = 'https://www.google.com/maps/embed/v1/directions'
-    + '?key=' + MAPS_EMBED_KEY
-    + '&origin=' + hotel.lat + ',' + hotel.lng
-    + '&destination=' + dest.lat + ',' + dest.lng
-    + '&mode=' + directionsMode;
+  const allowedModes = ['transit', 'driving'];
+  const safeMode = allowedModes.includes(directionsMode) ? directionsMode : 'transit';
 
-  document.getElementById('directions-embed-container').innerHTML =
-    '<iframe class="directions-embed" src="' + src + '" allowfullscreen loading="lazy"></iframe>';
+  const url = new URL('https://www.google.com/maps/embed/v1/directions');
+  url.searchParams.set('key', MAPS_EMBED_KEY);
+  url.searchParams.set('origin', hotel.lat + ',' + hotel.lng);
+  url.searchParams.set('destination', dest.lat + ',' + dest.lng);
+  url.searchParams.set('mode', safeMode);
+
+  const container = document.getElementById('directions-embed-container');
+  container.innerHTML = '';
+  const iframe = document.createElement('iframe');
+  iframe.className = 'directions-embed';
+  iframe.src = url.toString();
+  iframe.allowFullscreen = true;
+  iframe.loading = 'lazy';
+  container.appendChild(iframe);
 }
 
 function showPlaceholder() {
-  document.getElementById('directions-embed-container').innerHTML =
-    '<div class="directions-placeholder">Select your hotel above to see directions</div>';
+  const container = document.getElementById('directions-embed-container');
+  container.innerHTML = '';
+  const div = document.createElement('div');
+  div.className = 'directions-placeholder';
+  div.textContent = 'Select your hotel above to see directions';
+  container.appendChild(div);
 }
 
 // Close on backdrop click
@@ -1718,28 +1753,6 @@ function injectDirectionsLinks() {
 }
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDS_uyZVxZK8wxFNESVP3RITS3UAgoLcs&callback=initMap"></script>
-
-<div class="directions-backdrop" id="directions-backdrop">
-  <div class="directions-modal" role="dialog" aria-modal="true" aria-labelledby="directions-title" onclick="event.stopPropagation()">
-    <div class="directions-header">
-      <h3 id="directions-title">Directions</h3>
-      <button class="directions-close" onclick="closeDirections()" aria-label="Close directions">&times;</button>
-    </div>
-    <div class="directions-hotel">
-      <label for="directions-hotel-select">From</label>
-      <select id="directions-hotel-select" onchange="onHotelChange()">
-        <option value="">Select your hotel...</option>
-      </select>
-    </div>
-    <div class="directions-modes">
-      <button class="directions-mode-btn active" data-mode="transit" onclick="setMode('transit')">🚇 Transit</button>
-      <button class="directions-mode-btn" data-mode="driving" onclick="setMode('driving')">🚗 Car</button>
-    </div>
-    <div id="directions-embed-container">
-      <div class="directions-placeholder">Select your hotel above to see directions</div>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
