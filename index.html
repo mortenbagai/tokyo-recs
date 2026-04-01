@@ -17,6 +17,7 @@
     --wine: #8b3a4a;
     --coffee: #5c3d2e;
     --hotel: #2a7d6e;
+    --store: #c49032;
     --tag-bg: #eae6df;
   }
 
@@ -173,6 +174,7 @@
   .section-header.wine h2 { color: var(--wine); }
   .section-header.coffee h2 { color: var(--coffee); }
   .section-header.hotel h2 { color: var(--hotel); }
+    .section-header.store h2 { color: var(--store); }
 
   /* Container */
   .container {
@@ -264,6 +266,7 @@
   .tag.wine-tag { color: var(--wine); background: rgba(139, 58, 74, 0.06); border-color: rgba(139, 58, 74, 0.1); }
   .tag.coffee-tag { color: var(--coffee); background: rgba(92, 61, 46, 0.06); border-color: rgba(92, 61, 46, 0.1); }
   .tag.hotel-tag { color: var(--hotel); background: rgba(42, 125, 110, 0.06); border-color: rgba(42, 125, 110, 0.1); }
+    .tag.store-tag { color: var(--store); background: rgba(196, 144, 50, 0.06); border-color: rgba(196, 144, 50, 0.1); }
 
   .map-link {
     font-size: 11px;
@@ -595,7 +598,7 @@
 <div class="header">
   <h1>Tokyo Guide</h1>
   <div class="header-rule"></div>
-  <div class="header-sub">44 curated places to eat, drink, caffeinate &amp; sleep</div>
+  <div class="header-sub">46 curated places to eat, drink, caffeinate, sleep &amp; shop</div>
 </div>
 
 <nav class="nav">
@@ -604,6 +607,7 @@
   <a href="#wine">Wine</a>
   <a href="#coffee">Coffee</a>
   <a href="#hotels">Hotels</a>
+  <a href="#stores">Stores</a>
 </nav>
 
 <div id="map"></div>
@@ -1408,6 +1412,49 @@
   </div>
 </div>
 
+<div id="stores">
+  <div class="section-header store">
+    <h2>Stores</h2>
+  </div>
+  <div class="entries">
+
+    <div class="entry" id="sembikiya">
+      <img class="entry-photo" src="images/sembikiya.jpg" alt="Sembikiya Sohonten" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Sembikiya Sohonten <span style="font-family:'DM Sans';font-size:16px;color:var(--muted);font-weight:400">(千疋屋総本店)</span></div>
+        <div class="entry-meta">
+          <span class="tag store-tag">Luxury Fruit</span>
+          <span class="tag">Nihonbashi · Mitsukoshi-mae <span class="line-badge" title="Ginza Line" style="background:#F39700">G</span> <span class="line-badge" title="Hanzomon Line" style="background:#8F76D6">Z</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Sembikiya+Sohonten+Nihonbashi" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Founded in 1834, Sembikiya is Japan's oldest and most revered fruit shop — a place where a single Shizuoka muskmelon in a wooden box can cost ¥30,000 and nobody blinks. The Nihonbashi flagship occupies the ground floor of the Mitsui Tower (the same building as the Mandarin Oriental), and the contrast between the hushed, marble-floored retail space and the hyper-modern tower above is quintessential Tokyo. The second-floor Fruit Parlour, in operation since the Meiji era, is the destination: the Sembikiya Special Parfait layers seven seasonal fruits over purées and sherbets, and the fruit sandwiches — strawberry, kiwi, pineapple, papaya, chosen specifically for not releasing moisture — are an edible lesson in Japanese precision. Come for the parfait; leave with a box of gift fruit that will make you the most popular guest at any dinner party.
+      </div>
+      </div>
+    </div>
+
+    <div class="entry" id="takano">
+      <img class="entry-photo" src="images/takano.jpg" alt="Takano Fruit Parlour" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Takano Fruit Parlour <span style="font-family:'DM Sans';font-size:16px;color:var(--muted);font-weight:400">(新宿高野)</span></div>
+        <div class="entry-meta">
+          <span class="tag store-tag">Luxury Fruit</span>
+          <span class="tag">Shinjuku · Shinjuku-sanchome <span class="line-badge" title="Marunouchi Line" style="background:#E60012">M</span> <span class="line-badge" title="Fukutoshin Line" style="background:#9C5E31">F</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Takano+Fruit+Parlour+Shinjuku" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Takano opened in 1885 — the same year Shinjuku Station did — as a fruit stand serving the new commuter district, and it has occupied this corner ever since. The gold-clad building is a Shinjuku landmark, whimsical and unmissable amid the neon. The fifth-floor Fruit Parlour is the draw: the signature muskmelon parfait (¥3,850), available only here, arranges Shizuoka melon in an ichimatsu checkered pattern that is as much sculpture as dessert. The seasonal fruit parfait uses up to thirteen varieties piled high, and the fruit sandwiches — apple, peach, melon, strawberry in pillowy cream — are the refined antidote to the chaos of Shinjuku below. On lower floors, gift counters sell boxed melons and fruit jellies, making Takano both a destination and a departure-day stop for edible souvenirs.
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="footer">
   <div class="footer-kanji">食</div>
   <p>Curated with care. Eat well.</p>
@@ -1417,6 +1464,7 @@
     <span>3 Wine</span>
     <span>3 Coffee</span>
     <span>14 Hotels</span>
+    <span>2 Stores</span>
   </div>
 </div>
 
@@ -1523,15 +1571,18 @@ function initMap() {
     { name: "Trunk (Hotel)", type: "Boutique Hotel", area: "Jingumae", lat: 35.6680, lng: 139.7070, cat: "h", slug: "trunk-hotel" },
     { name: "DDD Hotel", type: "Design Hotel", area: "Bakurocho", lat: 35.6920, lng: 139.7830, cat: "h", slug: "ddd-hotel" },
     { name: "Tsuki Tokyo", type: "Boutique Hotel", area: "Tsukiji", lat: 35.6660, lng: 139.7720, cat: "h", slug: "tsuki-tokyo" },
+    { name: "Sembikiya Sohonten", type: "Luxury Fruit", area: "Nihonbashi", lat: 35.6872, lng: 139.7733, cat: "s", slug: "sembikiya" },
+    { name: "Takano Fruit Parlour", type: "Luxury Fruit", area: "Shinjuku", lat: 35.6918, lng: 139.7020, cat: "s", slug: "takano" },
   ];
 
-  const colors = { r: '#c0442a', b: '#7b5ea7', w: '#a63d56', c: '#6b4226', h: '#2a7d6e' };
+  const colors = { r: '#c0442a', b: '#7b5ea7', w: '#a63d56', c: '#6b4226', h: '#2a7d6e', s: '#c49032' };
   const shapes = {
     r: { path: google.maps.SymbolPath.CIRCLE, scale: 7 },
     b: { path: 'M 0,-8 L 6,0 0,8 -6,0 Z', scale: 1 },
     w: { path: 'M 0,-8 L 7,6 -7,6 Z', scale: 1 },
     c: { path: 'M -5,-5 L 5,-5 5,5 -5,5 Z', scale: 1 },
     h: { path: 'M 0,-9 L 2.1,-2.8 8.6,-2.8 3.2,1.1 5.3,7.3 0,3.4 -5.3,7.3 -3.2,1.1 -8.6,-2.8 -2.1,-2.8 Z', scale: 1 },
+    s: { path: 'M 0,-7 L 6,-3.5 6,3.5 0,7 -6,3.5 -6,-3.5 Z', scale: 1 },
   };
   let openInfo = null;
 
@@ -1575,7 +1626,7 @@ function initMap() {
   // Legend
   const legend = document.createElement('div');
   legend.style.cssText = 'background:#f5f2ed;padding:8px 16px;margin:10px;border-radius:4px;font-family:DM Sans,sans-serif;font-size:11px;display:flex;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08)';
-  legend.innerHTML = '<span><span style="color:#c0442a">●</span> Restaurant</span><span><span style="color:#7b5ea7">◆</span> Bar</span><span><span style="color:#a63d56">▲</span> Wine</span><span><span style="color:#6b4226">■</span> Coffee</span><span><span style="color:#2a7d6e">★</span> Hotel</span>';
+  legend.innerHTML = '<span><span style="color:#c0442a">●</span> Restaurant</span><span><span style="color:#7b5ea7">◆</span> Bar</span><span><span style="color:#a63d56">▲</span> Wine</span><span><span style="color:#6b4226">■</span> Coffee</span><span><span style="color:#2a7d6e">★</span> Hotel</span><span><span style="color:#c49032">⬡</span> Store</span>';
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(legend);
 
   // Inject directions links into non-hotel entries
