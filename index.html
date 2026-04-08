@@ -598,7 +598,7 @@
 <div class="header">
   <h1>Tokyo Guide</h1>
   <div class="header-rule"></div>
-  <div class="header-sub">46 curated places to eat, drink, caffeinate, sleep &amp; shop</div>
+  <div class="header-sub">48 curated places to eat, drink, caffeinate, sleep &amp; shop</div>
 </div>
 
 <nav class="nav">
@@ -652,6 +652,24 @@
       </div>
       <div class="entry-body">
         The original restaurant from the same Chef Hideaki Sakai. A dimly lit wooden counter, an open fire, and a 7-course omakase built on Kyushu ingredients and French-inflected technique. The ham cutlet is legendary — thick, crispy, and universally cited as a standout. You sit down, you tell them to feed you, and they do. Strong natural wine program and a sake list curated with the same care as the food. Five-minute walk from Shibuya Station. Reservations essential.
+      </div>
+      </div>
+    </div>
+
+    <div class="entry" id="sasano">
+      <img class="entry-photo" src="images/sasano.jpg" alt="Sasano" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Sasano <span style="font-family:'DM Sans';font-size:16px;color:var(--muted);font-weight:400">(酒呑 ささの)</span></div>
+        <div class="entry-meta">
+          <span class="tag cuisine">Seafood Izakaya</span>
+          <span class="tag">Nogizaka · Nogizaka <span class="line-badge" title="Chiyoda Line" style="background:#00BB85">C</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=酒呑+ささの+赤坂+Minato+Tokyo" target="_blank">↗ Map</a>
+          <a class="map-link" href="https://tabelog.com/en/tokyo/A1307/A130701/13001895/" target="_blank">↗ Tabelog</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Tucked on the second floor of an unassuming building between Nogizaka and Roppongi, Sasano is a seafood izakaya built around a live fish tank and an 80-plus sake list. The counter seats face the action — fish pulled from the tank minutes before it hits your plate — and the signature uni-ikura gunkan, piled obscenely high with sea urchin and salmon roe, is the dish that keeps regulars coming back. Grilled conger eel and seasonal small plates round out an omakase that punches well above its price point. The atmosphere is refined but relaxed, the kind of place where a quiet Tuesday dinner stretches to midnight. ¥10,000–15,000.
       </div>
       </div>
     </div>
@@ -1090,6 +1108,23 @@
       </div>
     </div>
 
+    <div class="entry" id="rozan">
+      <img class="entry-photo" src="images/rozan.jpg" alt="Rozan" loading="lazy">
+      <div class="entry-content">
+      <div class="entry-header">
+        <div class="entry-name">Rozan <span style="font-family:'DM Sans';font-size:16px;color:var(--muted);font-weight:400">(ロザン)</span></div>
+        <div class="entry-meta">
+          <span class="tag wine-tag">Burgundy Wine Bar</span>
+          <span class="tag">Motoazabu · Hiroo <span class="line-badge" title="Hibiya Line" style="background:#9CAEB7">H</span></span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ROZAN+Motoazabu+Minato+Tokyo" target="_blank">↗ Map</a>
+        </div>
+      </div>
+      <div class="entry-body">
+        Rozan is the spiritual successor to Bon Pinard, one of Tokyo's most legendary wine restaurants, whose cellar of 2,000-plus bottles — assembled over decades by sommelier Kohei Shindo, the first chef-sommelier at L'Atelier de Joël Robuchon Roppongi — now lives in this intimate Motoazabu basement. The focus is classical Burgundy at a depth that borders on absurd: DRC, Roumier, Leroy, Rouget, Dujac, properly aged and ready to drink. Sommelier Yusuke Kanazawa trained at a three-star in Ginza and navigates the list with quiet authority. The food — soba, charcoal-grilled duck, wagyu hamburger — is French-Japanese and designed to complement mature Burgundy rather than compete with it. Open until 2 AM. ¥15,000–25,000 before wine.
+      </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1460,9 +1495,9 @@
   <div class="footer-kanji">食</div>
   <p>Curated with care. Eat well.</p>
   <div class="footer-counts">
-    <span>19 Restaurants</span>
+    <span>20 Restaurants</span>
     <span>4 Bars</span>
-    <span>3 Wine</span>
+    <span>4 Wine</span>
     <span>3 Coffee</span>
     <span>14 Hotels</span>
     <span>2 Stores</span>
@@ -1530,6 +1565,7 @@ function initMap() {
   window._places = [
     { name: "Sōwadō", type: "Izakaya", area: "Hiroo", lat: 35.6480, lng: 139.7153, cat: "r", slug: "sowado" },
     { name: "Sakai Shokai", type: "Izakaya", area: "Shibuya", lat: 35.6576, lng: 139.7049, cat: "r", slug: "sakai-shokai" },
+    { name: "Sasano", type: "Seafood Izakaya", area: "Nogizaka", lat: 35.6660, lng: 139.7290, cat: "r", slug: "sasano" },
     { name: "Goryū Kubo", type: "Kaiseki", area: "Nishi-Azabu", lat: 35.6606, lng: 139.7234, cat: "r", slug: "goryu-kubo" },
     { name: "Pizza Marumo", type: "Pizza", area: "Ebisu", lat: 35.6453, lng: 139.7085, cat: "r", slug: "pizza-marumo" },
     { name: "400°C", type: "Pizza", area: "Kagurazaka", lat: 35.7002, lng: 139.7394, cat: "r", slug: "400c" },
@@ -1555,6 +1591,7 @@ function initMap() {
     { name: "LUONTO", type: "Italian · Wine", area: "Tsukiji", lat: 35.6700, lng: 139.7728, cat: "w", slug: "luonto" },
     { name: "Ararat", type: "French · Wine", area: "Toranomon", lat: 35.6692, lng: 139.7477, cat: "w", slug: "ararat" },
     { name: "Goût de Jaune", type: "Jura Wine Bar", area: "Akasaka", lat: 35.6686, lng: 139.7400, cat: "w", slug: "gout-de-jaune" },
+    { name: "Rozan", type: "Burgundy Wine Bar", area: "Motoazabu", lat: 35.6554, lng: 139.7265, cat: "w", slug: "rozan" },
     { name: "Leaves Coffee", type: "Roastery", area: "Kuramae", lat: 35.7027, lng: 139.7978, cat: "c", slug: "leaves-coffee" },
     { name: "Glitch Coffee", type: "Specialty Coffee", area: "Jimbocho", lat: 35.6937, lng: 139.7613, cat: "c", slug: "glitch-coffee" },
     { name: "Koffee Mameya", type: "Coffee Boutique", area: "Omotesando", lat: 35.6684, lng: 139.7109, cat: "c", slug: "koffee-mameya" },
